@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TicketFlow - Twig</title>
-<link rel="stylesheet" href="./assets/styles/global.css">
-<style>
+    <link rel="stylesheet" href="./assets/styles/global.css">
+    <style>
         .nav-toggle .hamburger-icon,
         .nav-toggle .cancel-icon {
             font-size: 1.5rem;
             transition: opacity 0.3s ease;
         }
-        
+
         .nav-toggle .cancel-icon {
             font-size: 1.8rem;
             font-weight: bold;
         }
-
-        
     </style>
 </head>
+
 <body>
-        <header class="header">
+    <header class="header">
         <div class="container">
             <nav class="nav" role="navigation">
                 <a href="/" class="logo" aria-label="TicketFlow Home">TicketFlow</a>
-                
-                <button class="nav-toggle" onclick="toggleMenu()" aria-expanded="false" aria-label="Toggle navigation menu">
+
+                <button class="nav-toggle" onclick="toggleMenu()" aria-expanded="false"
+                    aria-label="Toggle navigation menu">
                     <span class="hamburger-icon">&#9776;</span>
                     <span class="cancel-icon" style="display: none;">&times;</span>
                 </button>
 
                 <ul class="nav-links" id="navLinks">
-                                            <li><a href="/auth/login" class="nav-link">Login</a></li>
-                        <li><a href="/auth/signup" class="btn btn-primary btn-sm">Get Started</a></li>
-                                    </ul>
+                    <li><a href="./login.html" class="nav-link">Login</a></li>
+                    <li><a href="./signup.html" class="btn btn-primary btn-sm">Get Started</a></li>
+                </ul>
             </nav>
         </div>
     </header>
@@ -46,9 +47,9 @@
             const hamburgerIcon = document.querySelector('.hamburger-icon');
             const cancelIcon = document.querySelector('.cancel-icon');
             const isExpanded = navLinks.classList.contains('active');
-            
+
             navLinks.classList.toggle('active');
-            
+
             if (isExpanded) {
                 // Closing menu - show hamburger
                 hamburgerIcon.style.display = 'block';
@@ -69,7 +70,7 @@
             const navToggle = document.querySelector('.nav-toggle');
             const hamburgerIcon = document.querySelector('.hamburger-icon');
             const cancelIcon = document.querySelector('.cancel-icon');
-            
+
             navLinks.classList.remove('active');
             hamburgerIcon.style.display = 'block';
             cancelIcon.style.display = 'none';
@@ -78,27 +79,28 @@
         }
 
         // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             const nav = document.querySelector('.nav');
             const navToggle = document.querySelector('.nav-toggle');
             const navLinks = document.getElementById('navLinks');
-            
+
             if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
                 closeMenu();
             }
         });
 
         // Close menu on escape key
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 closeMenu();
             }
         });
     </script>
-    
-    <main>
-            </main>
 
-    
-    </body>
+    <main>
+    </main>
+
+
+</body>
+
 </html>

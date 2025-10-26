@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TicketFlow - Twig</title>
-<link rel="stylesheet" href="./assets/styles/global.css">
-<style>
+    <link rel="stylesheet" href="./assets/styles/global.css">
+    <style>
         .nav-toggle .hamburger-icon,
         .nav-toggle .cancel-icon {
             font-size: 1.5rem;
             transition: opacity 0.3s ease;
         }
-        
+
         .nav-toggle .cancel-icon {
             font-size: 1.8rem;
             font-weight: bold;
         }
     </style>
 </head>
+
 <body>
-        <header class="header">
+    <header class="header">
         <div class="container">
             <nav class="nav" role="navigation">
                 <a href="/" class="logo" aria-label="TicketFlow Home">TicketFlow</a>
-                
-                <button class="nav-toggle" onclick="toggleMenu()" aria-expanded="false" aria-label="Toggle navigation menu">
+
+                <button class="nav-toggle" onclick="toggleMenu()" aria-expanded="false"
+                    aria-label="Toggle navigation menu">
                     <span class="hamburger-icon">&#9776;</span>
                     <span class="cancel-icon" style="display: none;">&times;</span>
                 </button>
 
                 <ul class="nav-links" id="navLinks">
-                                            <li><a href="/auth/login" class="nav-link">Login</a></li>
-                        <li><a href="/auth/signup" class="btn btn-primary btn-sm">Get Started</a></li>
-                                    </ul>
+                    <li><a href="./login.html" class="nav-link">Login</a></li>
+                    <li><a href="./signup.html" class="btn btn-primary btn-sm">Get Started</a></li>
+                </ul>
             </nav>
         </div>
     </header>
@@ -44,9 +47,9 @@
             const hamburgerIcon = document.querySelector('.hamburger-icon');
             const cancelIcon = document.querySelector('.cancel-icon');
             const isExpanded = navLinks.classList.contains('active');
-            
+
             navLinks.classList.toggle('active');
-            
+
             if (isExpanded) {
                 // Closing menu - show hamburger
                 hamburgerIcon.style.display = 'block';
@@ -67,7 +70,7 @@
             const navToggle = document.querySelector('.nav-toggle');
             const hamburgerIcon = document.querySelector('.hamburger-icon');
             const cancelIcon = document.querySelector('.cancel-icon');
-            
+
             navLinks.classList.remove('active');
             hamburgerIcon.style.display = 'block';
             cancelIcon.style.display = 'none';
@@ -76,122 +79,125 @@
         }
 
         // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             const nav = document.querySelector('.nav');
             const navToggle = document.querySelector('.nav-toggle');
             const navLinks = document.getElementById('navLinks');
-            
+
             if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
                 closeMenu();
             }
         });
 
         // Close menu on escape key
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 closeMenu();
             }
         });
     </script>
-    
+
     <main>
         <div class="container" style="padding: 2rem 1rem">
 
-    <div>
-<div class="mb-4">
-        <h1 class="section-title">Dashboard</h1>
-        <p class="section-description" style="margin-bottom: 0">Welcome back, ! Here's your ticket overview.</p>
-    </div>
+            <div>
+                <div class="mb-4">
+                    <h1 class="section-title">Dashboard</h1>
+                    <p class="section-description" style="margin-bottom: 0">Welcome back, ! Here's your ticket overview.
+                    </p>
+                </div>
 
-    <div class="stats-grid">
-        <div class="stat-card card">
-            <div class="stat-number"></div>
-            <div class="stat-label">Total Tickets</div>
-        </div>
-        
-        <div class="stat-card card">
-            <div class="stat-number" style="color: var(--success-color)"></div>
-            <div class="stat-label">Open Tickets</div>
-        </div>
-        
-        <div class="stat-card card">
-            <div class="stat-number" style="color: var(--warning-color)"></div>
-            <div class="stat-label">In Progress</div>
-        </div>
-        
-        <div class="stat-card card">
-            <div class="stat-number" style="color: var(--gray-500)"></div>
-            <div class="stat-label">Closed Tickets</div>
-        </div>
-    </div>
+                <div class="stats-grid">
+                    <div class="stat-card card">
+                        <div class="stat-number"></div>
+                        <div class="stat-label">Total Tickets</div>
+                    </div>
 
-    </div>
-    
+                    <div class="stat-card card">
+                        <div class="stat-number" style="color: var(--success-color)"></div>
+                        <div class="stat-label">Open Tickets</div>
+                    </div>
 
-    <div class="quick-actions">
-<div class="card card1">
-        <h2 class="mb-3">Quick Actions</h2>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap">
-            <a href="/tickets" class="btn btn-primary">Manage Tickets</a>
-            <a href="/tickets" class="btn btn-secondary">Create New Ticket</a>
+                    <div class="stat-card card">
+                        <div class="stat-number" style="color: var(--warning-color)"></div>
+                        <div class="stat-label">In Progress</div>
+                    </div>
+
+                    <div class="stat-card card">
+                        <div class="stat-number" style="color: var(--gray-500)"></div>
+                        <div class="stat-label">Closed Tickets</div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="quick-actions">
+                <div class="card card1">
+                    <h2 class="mb-3">Quick Actions</h2>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+                        <a href="./tickets.html" class="btn btn-primary">Manage Tickets</a>
+                        <a href="./tickets.html" class="btn btn-secondary">Create New Ticket</a>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <h2 class="mb-3">Recent Activity</h2>
+                    <p style="color: var(--gray-500)">
+                        Your recent tickets and updates will appear here.
+                        <a href="./tickets.html" class="nav-link" style="display: inline; margin-left: 0.5rem">View all
+                            tickets</a>
+                    </p>
+                </div>
+            </div>
+
+
         </div>
-    </div>
 
-    <div class="card mt-4">
-        <h2 class="mb-3">Recent Activity</h2>
-        <p style="color: var(--gray-500)">
-            Your recent tickets and updates will appear here. 
-            <a href="/tickets" class="nav-link" style="display: inline; margin-left: 0.5rem">View all tickets</a>
-        </p>
-    </div>
-    </div>
-
-    
-</div>
-
-<footer class="footer" role="contentinfo">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-section socials quick-links">
-            <ul>
-              <li>
-                <a href="/">Home</a>
-              </li>
-              <li>
-                <a href="/auth/login">Login</a>
-              </li>
-              <li>
-                <a href="/auth/signup">Sign Up</a>
-              </li>
-            </ul>
-          </div>
-            <div class="footer-section socials">
-            <ul>
-              <li>
-                <a href="/">LinkedIn</a>
-              </li>
-              <li>
-                <a href="/">Instagram</a>
-              </li>
-              <li>
-                <a href="/">Twitter</a>
-              </li>
-              <li>
-                <a href="/">GitHub</a>
-              </li>
-              <li>
-                <a href="/">Facebook</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 TicketFlow. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
+        <footer class="footer" role="contentinfo">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section socials quick-links">
+                        <ul>
+                            <li>
+                                <a href="/">Home</a>
+                            </li>
+                            <li>
+                                <a href="./login.html">Login</a>
+                            </li>
+                            <li>
+                                <a href="./signup.html">Sign Up</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-section socials">
+                        <ul>
+                            <li>
+                                <a href="/">LinkedIn</a>
+                            </li>
+                            <li>
+                                <a href="/">Instagram</a>
+                            </li>
+                            <li>
+                                <a href="/">Twitter</a>
+                            </li>
+                            <li>
+                                <a href="/">GitHub</a>
+                            </li>
+                            <li>
+                                <a href="/">Facebook</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 TicketFlow. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
     </main>
 
-    
-    </body>
+
+</body>
+
 </html>
