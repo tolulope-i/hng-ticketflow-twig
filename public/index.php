@@ -125,10 +125,10 @@ function logoutUser() {
 // Define routes
 $routes = new RouteCollection();
 
-$routes->add('landing', new Route('/', [
+$routes->add('index', new Route('/', [
     '_controller' => function() use ($twig) {
         $user = $_SESSION['user'] ?? null;
-        return new Response($twig->render('landing.html.twig', [
+        return new Response($twig->render('index.html.twig', [
             'user' => $user
         ]));
     }

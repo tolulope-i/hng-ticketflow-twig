@@ -10,7 +10,7 @@ $twig = new \Twig\Environment($loader, [
 $pages = [
     'base.html.twig',
     'dashboard.html.twig',
-    'landing.html.twig',
+    'index.html.twig',
     'login.html.twig',
     'signup.html.twig',
     'tickets.html.twig',
