@@ -1,0 +1,19 @@
+{
+    "name": "hp/twig-version",
+    "description": "A ticket management web application with authentication and user dashboard",
+    "type": "project",
+    "require": {
+        "twig/twig": "^3.0",
+        "symfony/twig-bundle": "^7.3",
+        "symfony/twig-bridge": "^7.3",
+        "symfony/routing": "^7.3",
+        "symfony/http-foundation": "^7.3",
+        "symfony/http-kernel": "^7.3"
+    },
+    "authors": [
+        {
+            "name": "tolulope-i",
+            "email": "marvellousilesanmi25@gmail.com"
+        }
+    ]
+}

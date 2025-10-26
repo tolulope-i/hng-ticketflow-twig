@@ -1,0 +1,99 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+<div class="container" style="padding: 2rem 1rem">
+
+    <div>
+<div class="mb-4">
+        <h1 class="section-title">Dashboard</h1>
+        <p class="section-description" style="margin-bottom: 0">Welcome back, {{ user.name }}! Here's your ticket overview.</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card card">
+            <div class="stat-number">{{ stats.total }}</div>
+            <div class="stat-label">Total Tickets</div>
+        </div>
+        
+        <div class="stat-card card">
+            <div class="stat-number" style="color: var(--success-color)">{{ stats.open }}</div>
+            <div class="stat-label">Open Tickets</div>
+        </div>
+        
+        <div class="stat-card card">
+            <div class="stat-number" style="color: var(--warning-color)">{{ stats.inProgress }}</div>
+            <div class="stat-label">In Progress</div>
+        </div>
+        
+        <div class="stat-card card">
+            <div class="stat-number" style="color: var(--gray-500)">{{ stats.closed }}</div>
+            <div class="stat-label">Closed Tickets</div>
+        </div>
+    </div>
+
+    </div>
+    
+
+    <div class="quick-actions">
+<div class="card card1">
+        <h2 class="mb-3">Quick Actions</h2>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+            <a href="/tickets" class="btn btn-primary">Manage Tickets</a>
+            <a href="/tickets" class="btn btn-secondary">Create New Ticket</a>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <h2 class="mb-3">Recent Activity</h2>
+        <p style="color: var(--gray-500)">
+            Your recent tickets and updates will appear here. 
+            <a href="/tickets" class="nav-link" style="display: inline; margin-left: 0.5rem">View all tickets</a>
+        </p>
+    </div>
+    </div>
+
+    
+</div>
+
+<footer class="footer" role="contentinfo">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section socials quick-links">
+            <ul>
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/auth/login">Login</a>
+              </li>
+              <li>
+                <a href="/auth/signup">Sign Up</a>
+              </li>
+            </ul>
+          </div>
+            <div class="footer-section socials">
+            <ul>
+              <li>
+                <a href="/">LinkedIn</a>
+              </li>
+              <li>
+                <a href="/">Instagram</a>
+              </li>
+              <li>
+                <a href="/">Twitter</a>
+              </li>
+              <li>
+                <a href="/">GitHub</a>
+              </li>
+              <li>
+                <a href="/">Facebook</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TicketFlow. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+{% endblock %}

@@ -1,0 +1,198 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+<div class="container" style="padding: 2rem 1rem">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem" class='ticket-hero'>
+        <div>
+            <h1 class="section-title">Ticket Management</h1>
+            <p class="section-description" style="margin-bottom: 0">Create, view, edit, and manage your support tickets</p>
+        </div>
+        
+        <button onclick="showCreateForm()" class="btn btn-primary">Create New Ticket</button>
+    </div>
+
+    <div id="ticketForm" class="card mb-4" style="display: none">
+        <h2 class="mb-3" id="formTitle">Create New Ticket</h2>
+        
+        <form method="POST" id="ticketFormElement">
+            <input type="hidden" name="action" id="formAction" value="create">
+            <input type="hidden" name="ticket_id" id="ticketId">
+            
+            <div class="form-group">
+                <label for="title" class="form-label">Title *</label>
+                <input type="text" id="title" name="title" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" class="form-textarea" rows="4"></textarea>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+                <div class="form-group">
+                    <label for="status" class="form-label">Status *</label>
+                    <select id="status" name="status" class="form-select" required>
+                        <option value="open">Open</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="priority" class="form-label">Priority</label>
+                    <select id="priority" name="priority" class="form-select">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="urgent">Urgent</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: flex-end">
+                <button type="button" onclick="hideForm()" class="btn btn-outline">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create Ticket</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="ticket-grid">
+        {% if tickets is empty %}
+        <div class="card text-center" style="grid-column: 1 / -1; padding: 4rem 2rem">
+            <h3 class="mb-2">No tickets yet</h3>
+            <p class="mb-3" style="color: var(--gray-600)">Create your first ticket to get started with TicketFlow</p>
+            <button onclick="showCreateForm()" class="btn btn-primary">Create Your First Ticket</button>
+        </div>
+        {% else %}
+            {% for ticket in tickets %}
+            <div class="ticket-card card">
+                <div class="ticket-header">
+                    <h3 class="ticket-title">{{ ticket.title }}</h3>
+                    <div class="ticket-actions">
+                        <button onclick="editTicket({{ ticket.id|json_encode }})" class="btn btn-outline btn-sm">Edit</button>
+                        <form method="POST" style="display: inline" onsubmit="return confirm('Are you sure you want to delete this ticket?')">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                
+                {% if ticket.description %}
+                <p class="ticket-description">{{ ticket.description }}</p>
+                {% endif %}
+                
+                <div class="ticket-meta">
+                    <div>
+                        <span class="status-badge status-{{ ticket.status }}">
+                            {{ ticket.status == 'open' ? 'Open' : (ticket.status == 'in_progress' ? 'In Progress' : 'Closed') }}
+                        </span>
+                    </div>
+                    <div class="ticket-priority">Priority: {{ ticket.priority }}</div>
+                </div>
+                
+                <div style="font-size: 0.75rem; color: var(--gray-500); margin-top: 0.5rem">
+                    Created: {{ ticket.createdAt|date('Y-m-d') }}
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <footer class="footer" role="contentinfo">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section socials quick-links">
+            <ul>
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/auth/login">Login</a>
+              </li>
+              <li>
+                <a href="/auth/signup">Sign Up</a>
+              </li>
+            </ul>
+          </div>
+            <div class="footer-section socials">
+            <ul>
+              <li>
+                <a href="/">LinkedIn</a>
+              </li>
+              <li>
+                <a href="/">Instagram</a>
+              </li>
+              <li>
+                <a href="/">Twitter</a>
+              </li>
+              <li>
+                <a href="/">GitHub</a>
+              </li>
+              <li>
+                <a href="/">Facebook</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TicketFlow. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</div>
+
+<script>
+function showCreateForm() {
+    const form = document.getElementById('ticketForm');
+    const formTitle = document.getElementById('formTitle');
+    const formElement = document.getElementById('ticketFormElement');
+    
+    formTitle.textContent = 'Create New Ticket';
+    formElement.reset();
+    document.getElementById('formAction').value = 'create';
+    document.getElementById('ticketId').value = '';
+    form.style.display = 'block';
+}
+
+function hideForm() {
+    document.getElementById('ticketForm').style.display = 'none';
+}
+
+function editTicket(ticketId) {
+    // In a real application, you'd fetch the ticket data from the server
+    // For this demo, we'll use the existing ticket data from the page
+    const ticketElement = document.querySelector(`[data-ticket-id="${ticketId}"]`);
+    if (!ticketElement) return;
+    
+    const form = document.getElementById('ticketForm');
+    const formTitle = document.getElementById('formTitle');
+    const formElement = document.getElementById('ticketFormElement');
+    
+    formTitle.textContent = 'Edit Ticket';
+    document.getElementById('formAction').value = 'update';
+    document.getElementById('ticketId').value = ticketId;
+    
+    // Extract ticket data from the DOM (in a real app, this would come from an API)
+    const title = ticketElement.querySelector('.ticket-title').textContent;
+    const description = ticketElement.querySelector('.ticket-description')?.textContent || '';
+    const status = ticketElement.querySelector('.status-badge').className.match(/status-(\w+)/)[1];
+    const priority = ticketElement.querySelector('.ticket-priority').textContent.replace('Priority: ', '');
+    
+    document.getElementById('title').value = title;
+    document.getElementById('description').value = description;
+    document.getElementById('status').value = status;
+    document.getElementById('priority').value = priority.toLowerCase();
+    
+    form.style.display = 'block';
+}
+
+// Add data-ticket-id attributes to ticket elements for editing
+document.addEventListener('DOMContentLoaded', function() {
+    const ticketCards = document.querySelectorAll('.ticket-card');
+    ticketCards.forEach((card, index) => {
+        card.setAttribute('data-ticket-id', index + 1);
+    });
+});
+</script>
+{% endblock %}
