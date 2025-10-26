@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}TicketFlow - Twig{% endblock %}</title>
+    <title>TicketFlow - Twig</title>
 <link rel="stylesheet" href="./assets/styles/global.css">
 <style>
         .nav-toggle .hamburger-icon,
@@ -21,8 +21,7 @@
     </style>
 </head>
 <body>
-    {% block header %}
-    <header class="header">
+        <header class="header">
         <div class="container">
             <nav class="nav" role="navigation">
                 <a href="/" class="logo" aria-label="TicketFlow Home">TicketFlow</a>
@@ -33,15 +32,9 @@
                 </button>
 
                 <ul class="nav-links" id="navLinks">
-                    {% if user %}
-                        <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
-                        <li><a href="/tickets" class="nav-link">Tickets</a></li>
-                        <li><a href="/logout" class="btn btn-outline btn-sm">Logout</a></li>
-                    {% else %}
-                        <li><a href="/auth/login" class="nav-link">Login</a></li>
+                                            <li><a href="/auth/login" class="nav-link">Login</a></li>
                         <li><a href="/auth/signup" class="btn btn-primary btn-sm">Get Started</a></li>
-                    {% endif %}
-                </ul>
+                                    </ul>
             </nav>
         </div>
     </header>
@@ -102,24 +95,10 @@
             }
         });
     </script>
-    {% endblock %}
-
+    
     <main>
-        {% block content %}{% endblock %}
-    </main>
+            </main>
 
-    {% if success %}
-    <div class="toast toast-success" role="alert" aria-live="polite">
-        <span>{{ success }}</span>
-        <button onclick="this.parentElement.remove()" class="btn btn-sm" style="background: transparent; border: none; font-size: 1.25rem; padding: 0" aria-label="Close notification">×</button>
-    </div>
-    {% endif %}
-
-    {% if error %}
-    <div class="toast toast-error" role="alert" aria-live="polite">
-        <span>{{ error }}</span>
-        <button onclick="this.parentElement.remove()" class="btn btn-sm" style="background: transparent; border: none; font-size: 1.25rem; padding: 0" aria-label="Close notification">×</button>
-    </div>
-    {% endif %}
-</body>
+    
+    </body>
 </html>

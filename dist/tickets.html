@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicketFlow - Twig</title>
+<link rel="stylesheet" href="./assets/styles/global.css">
+<style>
+        .nav-toggle .hamburger-icon,
+        .nav-toggle .cancel-icon {
+            font-size: 1.5rem;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-toggle .cancel-icon {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        
+    </style>
+</head>
+<body>
+        <header class="header">
+        <div class="container">
+            <nav class="nav" role="navigation">
+                <a href="/" class="logo" aria-label="TicketFlow Home">TicketFlow</a>
+                
+                <button class="nav-toggle" onclick="toggleMenu()" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <span class="hamburger-icon">&#9776;</span>
+                    <span class="cancel-icon" style="display: none;">&times;</span>
+                </button>
+
+                <ul class="nav-links" id="navLinks">
+                                            <li><a href="/auth/login" class="nav-link">Login</a></li>
+                        <li><a href="/auth/signup" class="btn btn-primary btn-sm">Get Started</a></li>
+                                    </ul>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const navToggle = document.querySelector('.nav-toggle');
+            const hamburgerIcon = document.querySelector('.hamburger-icon');
+            const cancelIcon = document.querySelector('.cancel-icon');
+            const isExpanded = navLinks.classList.contains('active');
+            
+            navLinks.classList.toggle('active');
+            
+            if (isExpanded) {
+                // Closing menu - show hamburger
+                hamburgerIcon.style.display = 'block';
+                cancelIcon.style.display = 'none';
+                navToggle.setAttribute('aria-label', 'Open navigation menu');
+                navToggle.setAttribute('aria-expanded', 'false');
+            } else {
+                // Opening menu - show cancel
+                hamburgerIcon.style.display = 'none';
+                cancelIcon.style.display = 'block';
+                navToggle.setAttribute('aria-label', 'Close navigation menu');
+                navToggle.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const navToggle = document.querySelector('.nav-toggle');
+            const hamburgerIcon = document.querySelector('.hamburger-icon');
+            const cancelIcon = document.querySelector('.cancel-icon');
+            
+            navLinks.classList.remove('active');
+            hamburgerIcon.style.display = 'block';
+            cancelIcon.style.display = 'none';
+            navToggle.setAttribute('aria-label', 'Open navigation menu');
+            navToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('.nav');
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeMenu();
+            }
+        });
+    </script>
+    
+    <main>
+        <div class="container" style="padding: 2rem 1rem">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem" class='ticket-hero'>
+        <div>
+            <h1 class="section-title">Ticket Management</h1>
+            <p class="section-description" style="margin-bottom: 0">Create, view, edit, and manage your support tickets</p>
+        </div>
+        
+        <button onclick="showCreateForm()" class="btn btn-primary">Create New Ticket</button>
+    </div>
+
+    <div id="ticketForm" class="card mb-4" style="display: none">
+        <h2 class="mb-3" id="formTitle">Create New Ticket</h2>
+        
+        <form method="POST" id="ticketFormElement">
+            <input type="hidden" name="action" id="formAction" value="create">
+            <input type="hidden" name="ticket_id" id="ticketId">
+            
+            <div class="form-group">
+                <label for="title" class="form-label">Title *</label>
+                <input type="text" id="title" name="title" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" class="form-textarea" rows="4"></textarea>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem">
+                <div class="form-group">
+                    <label for="status" class="form-label">Status *</label>
+                    <select id="status" name="status" class="form-select" required>
+                        <option value="open">Open</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="priority" class="form-label">Priority</label>
+                    <select id="priority" name="priority" class="form-select">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="urgent">Urgent</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: flex-end">
+                <button type="button" onclick="hideForm()" class="btn btn-outline">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create Ticket</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="ticket-grid">
+                <div class="card text-center" style="grid-column: 1 / -1; padding: 4rem 2rem">
+            <h3 class="mb-2">No tickets yet</h3>
+            <p class="mb-3" style="color: var(--gray-600)">Create your first ticket to get started with TicketFlow</p>
+            <button onclick="showCreateForm()" class="btn btn-primary">Create Your First Ticket</button>
+        </div>
+            </div>
+
+    <footer class="footer" role="contentinfo">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section socials quick-links">
+            <ul>
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/auth/login">Login</a>
+              </li>
+              <li>
+                <a href="/auth/signup">Sign Up</a>
+              </li>
+            </ul>
+          </div>
+            <div class="footer-section socials">
+            <ul>
+              <li>
+                <a href="/">LinkedIn</a>
+              </li>
+              <li>
+                <a href="/">Instagram</a>
+              </li>
+              <li>
+                <a href="/">Twitter</a>
+              </li>
+              <li>
+                <a href="/">GitHub</a>
+              </li>
+              <li>
+                <a href="/">Facebook</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TicketFlow. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</div>
+
+<script>
+function showCreateForm() {
+    const form = document.getElementById('ticketForm');
+    const formTitle = document.getElementById('formTitle');
+    const formElement = document.getElementById('ticketFormElement');
+    
+    formTitle.textContent = 'Create New Ticket';
+    formElement.reset();
+    document.getElementById('formAction').value = 'create';
+    document.getElementById('ticketId').value = '';
+    form.style.display = 'block';
+}
+
+function hideForm() {
+    document.getElementById('ticketForm').style.display = 'none';
+}
+
+function editTicket(ticketId) {
+    // In a real application, you'd fetch the ticket data from the server
+    // For this demo, we'll use the existing ticket data from the page
+    const ticketElement = document.querySelector(`[data-ticket-id="${ticketId}"]`);
+    if (!ticketElement) return;
+    
+    const form = document.getElementById('ticketForm');
+    const formTitle = document.getElementById('formTitle');
+    const formElement = document.getElementById('ticketFormElement');
+    
+    formTitle.textContent = 'Edit Ticket';
+    document.getElementById('formAction').value = 'update';
+    document.getElementById('ticketId').value = ticketId;
+    
+    // Extract ticket data from the DOM (in a real app, this would come from an API)
+    const title = ticketElement.querySelector('.ticket-title').textContent;
+    const description = ticketElement.querySelector('.ticket-description')?.textContent || '';
+    const status = ticketElement.querySelector('.status-badge').className.match(/status-(\w+)/)[1];
+    const priority = ticketElement.querySelector('.ticket-priority').textContent.replace('Priority: ', '');
+    
+    document.getElementById('title').value = title;
+    document.getElementById('description').value = description;
+    document.getElementById('status').value = status;
+    document.getElementById('priority').value = priority.toLowerCase();
+    
+    form.style.display = 'block';
+}
+
+// Add data-ticket-id attributes to ticket elements for editing
+document.addEventListener('DOMContentLoaded', function() {
+    const ticketCards = document.querySelectorAll('.ticket-card');
+    ticketCards.forEach((card, index) => {
+        card.setAttribute('data-ticket-id', index + 1);
+    });
+});
+</script>
+    </main>
+
+    
+    </body>
+</html>

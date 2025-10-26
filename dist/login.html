@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}TicketFlow - Twig{% endblock %}</title>
+    <title>TicketFlow - Twig</title>
 <link rel="stylesheet" href="./assets/styles/global.css">
 <style>
         .nav-toggle .hamburger-icon,
@@ -21,8 +21,7 @@
     </style>
 </head>
 <body>
-    {% block header %}
-    <header class="header">
+        <header class="header">
         <div class="container">
             <nav class="nav" role="navigation">
                 <a href="/" class="logo" aria-label="TicketFlow Home">TicketFlow</a>
@@ -33,15 +32,9 @@
                 </button>
 
                 <ul class="nav-links" id="navLinks">
-                    {% if user %}
-                        <li><a href="/dashboard" class="nav-link">Dashboard</a></li>
-                        <li><a href="/tickets" class="nav-link">Tickets</a></li>
-                        <li><a href="/logout" class="btn btn-outline btn-sm">Logout</a></li>
-                    {% else %}
-                        <li><a href="/auth/login" class="nav-link">Login</a></li>
+                                            <li><a href="/auth/login" class="nav-link">Login</a></li>
                         <li><a href="/auth/signup" class="btn btn-primary btn-sm">Get Started</a></li>
-                    {% endif %}
-                </ul>
+                                    </ul>
             </nav>
         </div>
     </header>
@@ -102,24 +95,100 @@
             }
         });
     </script>
-    {% endblock %}
-
+    
     <main>
-        {% block content %}{% endblock %}
+        <div class="container" style="padding: 4rem 1rem">
+    <div style="max-width: 400px; margin: 0 auto">
+        <div class="card">
+            <h1 class="section-title text-center mb-3">Welcome Back</h1>
+            <p class="text-center mb-4" style="color: var(--gray-600)">Sign in to your TicketFlow account</p>
+            
+            <form method="POST" novalidate>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" class="form-input" required>
+                </div>
+
+                                
+                <button type="submit" class="btn btn-primary" style="width: 100%">Sign In</button>
+            </form>
+
+            <div class="text-center mt-3">
+                <button onclick="fillDemoCredentials()" class="btn btn-outline btn-sm" style="width: 100%" type="button">
+                    Use Demo Account
+                </button>
+            </div>
+            
+            <p class="text-center mt-3">
+                Don't have an account? <a href="/auth/signup" class="nav-link" style="display: inline">Sign up</a>
+            </p>
+        </div>
+        
+        <div class="card mt-4">
+            <h3 class="text-center mb-2">Demo Accounts</h3>
+            <div style="font-size: 0.875rem; color: var(--gray-600)">
+                <p><strong>Account 1:</strong><br>demo@ticketflow.com / demo123</p>
+                <p><strong>Account 2:</strong><br>tolu@gmail.com / tolu123</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer" role="contentinfo">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section socials quick-links">
+            <ul>
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                <a href="/auth/login">Login</a>
+              </li>
+              <li>
+                <a href="/auth/signup">Sign Up</a>
+              </li>
+            </ul>
+          </div>
+            <div class="footer-section socials">
+            <ul>
+              <li>
+                <a href="/">LinkedIn</a>
+              </li>
+              <li>
+                <a href="/">Instagram</a>
+              </li>
+              <li>
+                <a href="/">Twitter</a>
+              </li>
+              <li>
+                <a href="/">GitHub</a>
+              </li>
+              <li>
+                <a href="/">Facebook</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TicketFlow. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+function fillDemoCredentials() {
+    document.getElementById('email').value = 'demo@ticketflow.com';
+    document.getElementById('password').value = 'demo123';
+}
+</script>
     </main>
 
-    {% if success %}
-    <div class="toast toast-success" role="alert" aria-live="polite">
-        <span>{{ success }}</span>
-        <button onclick="this.parentElement.remove()" class="btn btn-sm" style="background: transparent; border: none; font-size: 1.25rem; padding: 0" aria-label="Close notification">×</button>
-    </div>
-    {% endif %}
-
-    {% if error %}
-    <div class="toast toast-error" role="alert" aria-live="polite">
-        <span>{{ error }}</span>
-        <button onclick="this.parentElement.remove()" class="btn btn-sm" style="background: transparent; border: none; font-size: 1.25rem; padding: 0" aria-label="Close notification">×</button>
-    </div>
-    {% endif %}
-</body>
+    
+    </body>
 </html>
