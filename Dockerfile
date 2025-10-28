@@ -23,11 +23,12 @@ COPY . /var/www/html/
 
 # 6. Move public files to web root and preserve vendor directory
 RUN mv /var/www/html/public /tmp/public && \
-    rm -rf /var/www/html/* && \
-    mv /tmp/public/* /var/www/html/ && \
     mv /var/www/html/vendor /tmp/vendor 2>/dev/null || true && \
+    rm -rf /var/www/html/* && \
+    mv /tmp/public/* /var/www/html/ 2>/dev/null || true && \
+    rmdir /tmp/public 2>/dev/null || true && \
     mv /tmp/vendor /var/www/html/ 2>/dev/null || true && \
-    rm -rf /tmp/public /tmp/vendor
+    rm -rf /tmp/vendor
 
 # 7. Set proper permissions
 RUN chown -R www-data:www-data /var/www/html
