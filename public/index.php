@@ -13,7 +13,7 @@ use Twig\Loader\FilesystemLoader;
 
 session_start();
 
-// Initialize Twig
+// Initializing Twig
 $loader = new FilesystemLoader('templates');
 $twig = new Environment($loader, [
     'cache' => false, // disable cache for development
@@ -21,7 +21,7 @@ $twig = new Environment($loader, [
 ]);
 
 
-// Initialize demo data
+// Initializing demo data
 function initializeDemoData() {
     if (!isset($_SESSION['ticketapp_users'])) {
         $_SESSION['ticketapp_users'] = [
@@ -78,14 +78,14 @@ function registerUser($name, $email, $password) {
     initializeDemoData();
     $users = $_SESSION['ticketapp_users'];
     
-    // Check if user already exists
+    // Checking if user already exists
     foreach ($users as $user) {
         if ($user['email'] === $email) {
             return ['success' => false, 'error' => 'User with this email already exists'];
         }
     }
     
-    // Validate input
+    // Validating input
     if (empty($name) || empty($email) || empty($password)) {
         return ['success' => false, 'error' => 'Please fill all fields'];
     }
@@ -98,7 +98,7 @@ function registerUser($name, $email, $password) {
         return ['success' => false, 'error' => 'Please enter a valid email address'];
     }
     
-    // Create new user
+    // Creating new user
     $newUser = [
         'id' => count($users) + 1,
         'name' => $name,
@@ -122,7 +122,7 @@ function logoutUser() {
     unset($_SESSION['user']);
 }
 
-// Define routes
+// Defining routes
 $routes = new RouteCollection();
 
 $routes->add('index', new Route('/', [
@@ -216,7 +216,7 @@ $routes->add('tickets', new Route('/tickets', [
         initializeDemoData();
         $tickets = $_SESSION['ticketapp_tickets'];
         
-        // Handle form submissions
+        // Handling form submissions
         if ($request->getMethod() === 'POST') {
             $action = $request->request->get('action');
             
@@ -226,7 +226,6 @@ $routes->add('tickets', new Route('/tickets', [
                 $status = $request->request->get('status');
                 $priority = $request->request->get('priority');
                 
-                // Validate
                 if (empty($title) || empty($status)) {
                     $_SESSION['error'] = 'Title and status are required';
                 } else {
@@ -289,7 +288,6 @@ $routes->add('logout', new Route('/logout', [
     }
 ]));
 
-// Route the request
 $request = Request::createFromGlobals();
 $context = new RequestContext();
 $context->fromRequest($request);
