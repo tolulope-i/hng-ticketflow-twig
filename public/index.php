@@ -1,5 +1,5 @@
 <?php
-require_once '../vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ use Twig\Loader\FilesystemLoader;
 session_start();
 
 // Initialize Twig
-$loader = new FilesystemLoader('../templates');
+$loader = new FilesystemLoader('templates');
 $twig = new Environment($loader, [
     'cache' => false, // disable cache for development
     'debug' => true
