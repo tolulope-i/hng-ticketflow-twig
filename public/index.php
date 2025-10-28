@@ -52,7 +52,7 @@ function isAuthenticated() {
 
 function requireAuth() {
     if (!isAuthenticated()) {
-        return new RedirectResponse('/auth/login');
+        return new RedirectResponse('/login');
     }
     return null;
 }
@@ -135,7 +135,7 @@ $routes->add('index', new Route('/', [
 ]));
 
 
-$routes->add('login', new Route('/auth/login', [
+$routes->add('login', new Route('/login', [
     '_controller' => function(Request $request) use ($twig) {
         if (isAuthenticated()) {
             return new RedirectResponse('/dashboard');
@@ -157,7 +157,7 @@ $routes->add('login', new Route('/auth/login', [
     }
 ]));
 
-$routes->add('signup', new Route('/auth/signup', [
+$routes->add('signup', new Route('/signup', [
     '_controller' => function(Request $request) use ($twig) {
         if (isAuthenticated()) {
             return new RedirectResponse('/dashboard');
