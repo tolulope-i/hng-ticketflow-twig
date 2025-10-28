@@ -3,7 +3,7 @@
         'name' => 'hp/twig-version',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'aef493e14f57790edd4719d14b7d99b1213462a5',
+        'reference' => 'f6cea44db2159f8018eb3aeb9a54514976100c78',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'hp/twig-version' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'aef493e14f57790edd4719d14b7d99b1213462a5',
+            'reference' => 'f6cea44db2159f8018eb3aeb9a54514976100c78',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
